@@ -42,10 +42,13 @@ class TestController extends Controller
            'user_id'=>Auth::user()->id,
            'quiz_id'=>$id
         ]);
+        
+        $quiz       = Quiz::where('id_quiz',$id)->first();
+        $questions  = Question::where('quiz_id',$id)->inRandomOrder()->get();
+        $start_time = Carbon::now();
 
-        return view('test.start')->with('quiz',Quiz::where('id_quiz',$id)->first())
-            ->with('questions',Question::where('quiz_id',$id)->get())
-            ->with('start_time',Carbon::now());
+        return view('test.start',compact('quiz','questions','start_time'));
+
     }
 
     
@@ -74,7 +77,7 @@ class TestController extends Controller
             }
             ResultOption::create([
                 'result_id'     =>$result_id,
-                'question'     =>$db_answer->question_text,
+                'question'     =>$db_answer->question,
                 'correct'     =>$db_answer->correct_option,
                 'answer'       =>$request->answer[$i],
                 'ans_correct'   =>$ans_correct
