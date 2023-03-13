@@ -25,10 +25,10 @@ class QuestionController extends Controller
         $id = $requests['quiz_id'];
         $cat = Question::create($requests);
         if($cat){
-            return redirect('question/'.$id)->with('status', 'Berhasil menambah data!');
+            return redirect('question/'.$id)->with('success', 'Berhasil menambah data!');
         }
 
-        return redirect('question/'.$id)->with('status', 'Gagal Menambah data!');
+        return redirect('question/'.$id)->with('error', 'Gagal Menambah data!');
         
     }
 
@@ -36,17 +36,17 @@ class QuestionController extends Controller
     {
         $d = Question::find($id);
         if ($d == null){
-            return redirect('question')->with('status', 'Data tidak Ditemukan !');
+            return redirect('question')->with('error', 'Data tidak Ditemukan !');
         }
 
         $req = $request->all();
 
         $data = Question::find($id)->update($req);
         if($data){
-            return redirect('question')->with('status', 'question Berhasil diedit !');
+            return redirect('question')->with('success', 'question Berhasil diedit !');
         }
 
-        return redirect('question')->with('status', 'Gagal edit data question!');
+        return redirect('question')->with('error', 'Gagal edit data question!');
         
     }
 
@@ -54,13 +54,13 @@ class QuestionController extends Controller
     {
     $data = Question::find($id);
     if ($data == null) {
-        return redirect()->back()->with('status', 'Data tidak ditemukan !');
+        return redirect()->back()->with('error', 'Data tidak ditemukan !');
     }
     
     $delete = $data->delete();
     if ($delete) {
-        return redirect()->back()->with('status', 'Berhasil hapus question !');
+        return redirect()->back()->with('success', 'Berhasil hapus question !');
     }
-    return redirect()->back()->with('status', 'Gagal hapus question !');
+    return redirect()->back()->with('error', 'Gagal hapus question !');
     }
 }

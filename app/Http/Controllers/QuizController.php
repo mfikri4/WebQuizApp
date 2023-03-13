@@ -21,14 +21,16 @@ class QuizController extends Controller
     }
 
     public function insert(Request $request){
-
+        if ($request->duration < 15){
+            return redirect()->back()->with('error','Quiz: '.$request->title.' gagal ditambahkan. Durasi kurang dari 15 menit!');
+        }
         if (Quiz::create([
             'title'     =>$request->title,
             'from_time' =>$request->from_time,
             'to_time'   =>$request->to_time,
             'duration'  =>$request->duration,
         ])){
-            return redirect()->back()->with('success','Quiz: '.$request->title.' berhasil ditambahkan!');
+            return redirect('quiz')->with('success','Quiz: '.$request->title.' berhasil ditambahkan!');
         }
         return redirect()->back()->with('error','Quiz: '.$request->title.' gagal ditambahkan. Ada sesuatu yang salah!');
     }
@@ -39,21 +41,18 @@ class QuizController extends Controller
         return view('quiz.edit', compact('data'));
     }
 
-    public function update(Request $request,$id)
+
+    public function delete($id)
     {
-        $d = Question::find($id);
-        if ($d == null){
-            return redirect('question')->with('status', 'Data tidak Ditemukan !');
-        }
-
-        $req = $request->all();
-
-        $data = Question::find($id)->update($req);
-        if($data){
-            return redirect('question')->with('status', 'question Berhasil diedit !');
-        }
-
-        return redirect('question')->with('status', 'Gagal edit data question!');
-        
+    $data = Quiz::find($id);
+    if ($data == null) {
+        return redirect()->back()->with('status', 'Data tidak ditemukan !');
+    }
+    
+    $delete = $data->delete();
+    if ($delete) {
+        return redirect()->back()->with('status', 'Berhasil hapus quiz !');
+    }
+    return redirect()->back()->with('status', 'Gagal hapus quiz !');
     }
 }

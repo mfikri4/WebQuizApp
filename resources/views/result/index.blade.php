@@ -35,10 +35,8 @@
                                 @if(Auth::user()->role == 1)
                                     <th scope="col">User Name</th>
                                 @endif
-                                {{-- @if(session('user_role')=='admin')
-                                    <th scope="col">User Name</th>
-                                @endif --}}
                                 <th scope="col">Tanggal</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -49,7 +47,7 @@
                             @foreach($results as $result)
                                 <tr>
                                     @php
-                                        $nilai= 100*($result->achieved_score/$result->quiz_score);
+                                        (float)$nilai= 100*((float)$result->achieved_score/(float)$result->quiz_score);
                                     @endphp
                                     <th scope="row">{{$sl++}}</th>
                                     <td>{{$result->title}}</td>
@@ -58,10 +56,19 @@
                                     @if(Auth::user()->role == 1)
                                     <td>{{$result->name}}</td>     
                                     @endif
-                                    {{-- @if(session('user_role')=='admin')
-                                    <td>{{$result->name}}</td>     
-                                    @endif  --}}
                                     <td>{{$result->created_at}}</td>
+                                    <td>
+                                        @if(Auth::user()->role == 1)
+                                            <a href="{{ url('result/answer/'.$result->id_result) }}" class="btn btn-info btn-sm mb-2">
+                                                Lihat Jawaban 
+                                            </a>
+                                        @else
+                                            <a href="{{ url('result-user/answer/'.$result->id_result) }}" class="btn btn-info btn-sm mb-2">
+                                                Lihat Jawaban 
+                                            </a>
+                                        @endif
+
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

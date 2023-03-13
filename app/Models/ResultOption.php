@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class ResultOption extends Model
 {
     use HasFactory;
-    public $table = 'question_result';
-
-    protected $fillable = [
-        'result_id',
-        'question_id',
-        'option_id',
-        'point',
+    public $table = 'result_option';
+    protected $primaryKey = "id_result_option";
+    protected $fillable=[
+      'result_id',
+      'question',
+      'correct',
+      'answer',
+      'ans_correct'
     ];
+
 }

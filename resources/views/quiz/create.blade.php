@@ -81,7 +81,7 @@
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     {{ __('Tambah Data') }}
                                 </button>
-                                <a href="{{ url('user') }}" class="btn btn-secondary btn-sm">
+                                <a href="{{ url('quiz') }}" class="btn btn-secondary btn-sm">
                                     {{ __('Kembali') }}
                                 </a>
                             </div>

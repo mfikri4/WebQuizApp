@@ -30,8 +30,8 @@
                             <th>Title</th>
                             <th>From</th>
                             <th>To</th>
-                            <th>Soal</th>
-                            <th>Duration</th>
+                            <th>Durasi</th>
+                            <th>Aksi</th>
                         </tr>
                         <?php
                         $no=1;
@@ -45,7 +45,7 @@
                             <td>{{$dt->duration}}</td>
                             <td>
                                 <a href="{{ url('question/'.$dt->id_quiz) }}" class="btn btn-info btn-sm mb-2">
-                                    Tambah Soal 
+                                    Lihat Soal 
                                 </a>
                                 <a href="{{ url('quiz/edit/'.$dt->id_quiz) }}" class="btn btn-primary btn-sm mb-2">
                                     Edit 

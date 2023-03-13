@@ -9,6 +9,7 @@ use App\Models\Answer;
 use App\Models\Quiz;
 use App\Models\ExamCandidate;
 use App\Models\Result;
+use App\Models\ResultOption;
 use Carbon\Carbon;
 use Auth;
 
@@ -54,22 +55,41 @@ class TestController extends Controller
         $db_answers = Question::where('quiz_id',$request['quiz_id'])->get();
         $correct=0;
         $total=0;
+        $dt_result = Result::create([
+            'user_id'=>Auth::user()->id,
+            'quiz_id'=>$request['quiz_id'],
+            'quiz_score'=>$total,
+            'achieved_score'=>$correct
+        ]);
+        $result_id = $dt_result['id_result'];
+
         foreach ($db_answers as $db_answer){
+            $ans_correct = 0;
             if ($db_answer->correct_option==$request->answer[$i]){
                 $correct++;
+                $ans_correct = 1;
             }
             else{
+                $ans_correct = 0;
             }
+            ResultOption::create([
+                'result_id'     =>$result_id,
+                'question'     =>$db_answer->question_text,
+                'correct'     =>$db_answer->correct_option,
+                'answer'       =>$request->answer[$i],
+                'ans_correct'   =>$ans_correct
+            ]);
             $i++;
             $total++;
         }
-        Result::create([
+        
+        Result::find($result_id)->update([
             'user_id'=>Auth::user()->id,
             'quiz_id'=>$request['quiz_id'],
             'quiz_score'=>$total,
             'achieved_score'=>$correct
         ]);
 
-        return redirect('result')->with('success','Tes selesai dab data tersimpan');
+        return redirect('result-user')->with('success','Tes selesai dab data tersimpan');
     }
 }

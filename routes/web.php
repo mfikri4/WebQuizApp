@@ -26,12 +26,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 Route::group(['middleware' => 'admin'],function(){
 
-    // Route::get('/home', [AdminController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::prefix('quiz')->group(function(){
@@ -48,8 +44,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
         Route::get('delete/{id}', [QuestionController::class, 'delete']);
     });
 
-
     Route::get('result', [ResultController::class, 'result']);
+    Route::get('result/answer/{id}', [ResultController::class, 'show']);
    
 });
 
@@ -64,6 +60,7 @@ Route::group(['middleware' => 'user'],function(){
     });
 
     Route::get('result-user', [ResultController::class, 'index']);
+    Route::get('result-user/answer/{id}', [ResultController::class, 'show']);
    
     
 });

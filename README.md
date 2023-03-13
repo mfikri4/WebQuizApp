@@ -37,4 +37,43 @@ lakukan migrate
 
 #### Login
 
--   Silahkan Register
+-   Silahkan Register untuk mendapatkan akses login
+
+
+#### API SANCTUM
+
+-   API Login
+```bash
+    http://127.0.0.1:8000/api/login
+```
+
+-   API Register
+```bash
+    http://127.0.0.1:8000/api/register
+```
+
+-   API Logout
+```bash
+    http://127.0.0.1:8000/api/login
+```
+
+-   API Get Profile
+```bash
+    http://127.0.0.1:8000/api/profile
+```
+
+-   API Get List User
+```bash
+    http://127.0.0.1:8000/api/user
+```
+
+-   API Get List Question
+```bash
+    http://127.0.0.1:8000/api/question
+```
+
+-   API Get List Result Option
+```bash
+    http://127.0.0.1:8000/api/result
+```
+
