@@ -16,13 +16,20 @@ Go to the project directory
 
 -   Copy .env.example file to .env and edit database credentials there
 
+lakukan composer install
+
+
 ```bash
     composer install
 ```
 
+lakukan generate key
+
 ```bash
     php artisan key:generate
 ```
+
+lakukan migrate
 
 ```bash
     php artisan migrate
